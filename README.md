@@ -18,14 +18,14 @@ or add
 ```
 "globus/yii2-tilda-api": "*"
 ```
+to the require section of your `composer.json` file.
+
+
 Apply migrations
 
 ```
 php yii migrate --migrationPath=../vendor/globus/yii2-tilda-api/migrations
 ```
-
-to the require section of your `composer.json` file.
-
 
 Usage
 -----
@@ -33,4 +33,19 @@ Usage
 Once the extension is installed, simply use it in your code by  :
 
 ```php
-<?= \globus\tilda\AutoloadExample::widget(); ?>```
+    'components' => [
+         ...
+         'tilda' => [
+             'class' => 'globus\tilda\TildaApi',
+             'publicKey' => '**********',
+             'secretKey' => '**********',
+             'assetsUrl' => Yii::getAlias('@storageUrl') . '/tilda',
+             'assetsPath' => Yii::getAlias('@storage') . '/web/tilda',
+         ],
+     ],
+```
+Once the extension is installed, simply use it in your code by  :
+
+```php
+Yii::$app->tilda->getPage($pageID)
+```
