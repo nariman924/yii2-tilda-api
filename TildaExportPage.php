@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: nariman
- * Date: 12.04.17
- * Time: 10:34
- */
 
 namespace globus\tilda;
 
