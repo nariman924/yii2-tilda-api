@@ -91,7 +91,6 @@ class TildaExportPage
             $replaceTo[] = $url;
         }
         $savedPage->replaceImg($replaceFrom, $replaceTo);
-        echo $savedPage->html;
         $savedPage->save();
 
         return \Yii::$app->db->createCommand()
