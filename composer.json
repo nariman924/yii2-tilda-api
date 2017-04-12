@@ -1,6 +1,7 @@
 {
     "name": "globus/yii2-tilda-api",
     "description": "Tilda platform api extension for Yii2",
+    "version": "1.0.0",
     "type": "yii2-extension",
     "keywords": ["yii2","extension","tilda","api","platform"],
     "license": "MIT",
