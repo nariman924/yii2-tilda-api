@@ -30,13 +30,9 @@ class TildaApi extends Component
     const GET_PAGE_EXPORT_FULL = '/v1/getpagefullexport';
 
     /** @var  string */
-    public $imagePath;
+    public $assetsPath;
     /** @var  string */
-    public $cssPath;
-    /** @var  string */
-    public $jsPath;
-    /** @var  string */
-    public $htmlPath = '';
+    public $assetsUrl;
     /** @var  string */
     public $publicKey;
     /** @var  string */
@@ -59,6 +55,16 @@ class TildaApi extends Component
         if (!$this->secretKey) {
             throw new InvalidConfigException("secretKey can't be empty!");
         }
+        if (!$this->assetsPath) {
+            throw new InvalidConfigException("assetsPath can't be empty!");
+        } elseif($this->assetsPath[strlen($this->assetsPath)-1] != DIRECTORY_SEPARATOR) {
+            $this->assetsPath .= DIRECTORY_SEPARATOR;
+        }
+        if (!$this->assetsUrl) {
+            throw new InvalidConfigException("assetsPath can't be empty!");
+        } elseif($this->assetsUrl[strlen($this->assetsUrl)-1] != '/') {
+            $this->assetsUrl .= '/';
+        }
     }
 
     public function getPage($pageID)
@@ -69,11 +75,15 @@ class TildaApi extends Component
             ->setData([
                 'publickey' => $this->publicKey,
                 'secretkey' => $this->secretKey,
-                'pageID' => $pageID,
+                'pageid' => $pageID,
             ])->send();
 
         if ($request->isOk) {
-            var_dump($request->data);
+            if (isset($request->data['status']) && $request->data['status'] == self::API_STATUS_SUCCESS) {
+                $this->pageObj = new TildaExportPage($request->data['result'], $this->assetsPath, $this->assetsUrl);
+            }
+        } elseif (isset($request->data['status']) && $request->data['status'] == self::API_STATUS_ERROR) {
+            \Yii::warning($request->data['message'], 'yii2-tilda-api');
         }
     }
 }

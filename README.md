@@ -18,6 +18,11 @@ or add
 ```
 "globus/yii2-tilda-api": "*"
 ```
+Apply migrations
+
+```
+php yii migrate --migrationPath=../vendor/globus/yii2-tilda-api/migrations
+```
 
 to the require section of your `composer.json` file.
 
