@@ -17,6 +17,7 @@ class TildaExportPage
     public $projectID;
     public $assetsPath;
     public $title;
+    public $alias;
     private $html;
     private $img;
     private $css;
@@ -30,6 +31,7 @@ class TildaExportPage
         $this->pageID = isset($response['id']) ? $response['id'] : null;
         $this->projectID = isset($response['projectid']) ? $response['projectid'] : null;
         $this->title = isset($response['title']) ? $response['title'] : null;
+        $this->alias = isset($response['alias']) ? $response['alias'] : null;
         $this->html = isset($response['html']) ? $response['html'] : null;
         $this->img = isset($response['images']) ? $response['images'] : [];
         $this->css = isset($response['css']) ? $response['css'] : [];
@@ -51,6 +53,7 @@ class TildaExportPage
             'published' => true,
             'title' => $this->title,
             'html' => $this->html,
+            'alias' => $this->alias,
         ]);
 
         if ($page->save()) {

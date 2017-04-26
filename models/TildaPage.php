@@ -12,6 +12,7 @@ use Yii;
  * @property integer $project_id
  * @property integer $published
  * @property string $title
+ * @property string $alias
  * @property string $html
  *
  * @property TildaImage[] $tildaImages
@@ -36,7 +37,7 @@ class TildaPage extends \yii\db\ActiveRecord
         return [
             [['page_id', 'project_id', 'published'], 'integer'],
             [['html'], 'string'],
-            [['title'], 'string', 'max' => 255],
+            [['title', 'alias'], 'string', 'max' => 255],
         ];
     }
 
@@ -51,6 +52,7 @@ class TildaPage extends \yii\db\ActiveRecord
             'project_id' => Yii::t('app', 'Project ID'),
             'published' => Yii::t('app', 'Published'),
             'title' => Yii::t('app', 'Title'),
+            'alias' => Yii::t('app', 'Alias'),
             'html' => Yii::t('app', 'Html'),
         ];
     }

@@ -67,6 +67,30 @@ class TildaApi extends Component
         }
     }
 
+    public function getPages($projectID)
+    {
+        $request = $this->client->createRequest()
+            ->setMethod('get')
+            ->setUrl(self::GET_PAGE_LIST)
+            ->setData([
+                'publickey' => $this->publicKey,
+                'secretkey' => $this->secretKey,
+                'projectid' => $projectID,
+            ])->send();
+
+        if ($request->isOk) {
+            if (isset($request->data['status']) && $request->data['status'] == self::API_STATUS_SUCCESS) {
+                $pageIDs = array_column($request->data['result'], 'id');
+
+                foreach ($pageIDs as $pageID) {
+                    $this->getPage($pageID);
+                }
+            }
+        } elseif (isset($request->data['status']) && $request->data['status'] == self::API_STATUS_ERROR) {
+            \Yii::warning($request->data['message'], 'yii2-tilda-api');
+        }
+    }
+
     public function getPage($pageID)
     {
         $request = $this->client->createRequest()
