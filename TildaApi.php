@@ -12,21 +12,13 @@ class TildaApi extends Component
     const API_STATUS_SUCCESS = 'FOUND';
     const API_STATUS_ERROR = 'ERROR';
 
-    //Список проектов
     const GET_PROJECT_LIST = '/v1/getprojectslist';
-    //Информация о проекте
     const GET_PROJECT_INFO = '/v1/getproject';
-    //Информация о проекте для экспорта
     const GET_PROJECT_INFO_EXPORT = '/v1/getprojectexport';
-    //Список страниц в проекте
     const GET_PAGE_LIST = '/v1/getpageslist';
-    //Информация о странице (+ body html-code)
     const GET_PAGE_INFO = '/v1/getpage';
-    //Информация о странице (+ fullpage html-code)
     const GET_PAGE_INFO_FULL = '/v1/getpagefull';
-    //Информация о странице для экспорта (+ body html-code)
     const GET_PAGE_EXPORT = '/v1/getpageexport';
-    //Информация о странице для экспорта (+ fullpage html-code)
     const GET_PAGE_EXPORT_FULL = '/v1/getpagefullexport';
 
     /** @var  string */

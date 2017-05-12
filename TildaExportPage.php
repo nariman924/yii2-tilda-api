@@ -72,20 +72,22 @@ class TildaExportPage
         $basePath = $this->preparePath(self::IMG_PATH);
 
         foreach ($this->img as $item) {
-            $path = $basePath . $item['to'];
-            $url = $this->prepareUrl(self::IMG_PATH) . $item['to'];
+            if (!in_array($item['to'], $replaceFrom)) {
+                $path = $basePath . $item['to'];
+                $url = $this->prepareUrl(self::IMG_PATH) . $item['to'];
 
-            $data[] = [
-                'tilda_page_id' => $savedPage->id,
-                'source_url' => $item['from'],
-                'path' => $url,
-                'name' => $item['to']
-            ];
+                $data[] = [
+                    'tilda_page_id' => $savedPage->id,
+                    'source_url' => $item['from'],
+                    'path' => $url,
+                    'name' => $item['to']
+                ];
 
-            $this->fetchFile($item['from'], $path);
+                $this->fetchFile($item['from'], $path);
 
-            $replaceFrom[] = $item['to'];
-            $replaceTo[] = $url;
+                $replaceFrom[] = $item['to'];
+                $replaceTo[] = $url;
+            }
         }
         $savedPage->replaceImg($replaceFrom, $replaceTo);
         $savedPage->save();
