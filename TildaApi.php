@@ -2,6 +2,7 @@
 
 namespace globus\tilda;
 
+use globus\tilda\models\TildaPage;
 use yii\base\Component;
 use yii\base\InvalidConfigException;
 use yii\httpclient\Client;
@@ -61,6 +62,7 @@ class TildaApi extends Component
 
     public function getPages($projectID)
     {
+        $oldPage = TildaPage::find()->select(['page_id'])->column();
         $request = $this->client->createRequest()
             ->setMethod('get')
             ->setUrl(self::GET_PAGE_LIST)
@@ -73,6 +75,8 @@ class TildaApi extends Component
         if ($request->isOk) {
             if (isset($request->data['status']) && $request->data['status'] == self::API_STATUS_SUCCESS) {
                 $pageIDs = array_column($request->data['result'], 'id');
+                $oldToRemove = array_diff($oldPage, $pageIDs);
+                TildaPage::deleteAll(['page_id' => $oldToRemove]);
 
                 foreach ($pageIDs as $pageID) {
                     $this->getPage($pageID);
