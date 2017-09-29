@@ -33,7 +33,7 @@ class TildaExportPage
         $this->projectID = isset($response['projectid']) ? $response['projectid'] : null;
         $this->title = isset($response['title']) ? $response['title'] : null;
         $this->alias = isset($response['alias']) ? $response['alias'] : null;
-        $this->published = isset($response['published']) ? boolval($response['published']) : false;
+        $this->published = empty($response['published']) ? 0 : 1;
         $this->html = isset($response['html']) ? $response['html'] : null;
         $this->img = isset($response['images']) ? $response['images'] : [];
         $this->css = isset($response['css']) ? $response['css'] : [];
